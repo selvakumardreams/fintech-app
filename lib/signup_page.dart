@@ -11,13 +11,13 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 48.0,
-        child: Image.asset('assets/logo.png'),
+
+    final logoLabel = FlatButton(
+      child: Text(
+        'Diaxfcon',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 30.0),
       ),
+      onPressed: () {},
     );
 
     final firstname = TextFormField(
@@ -26,6 +26,8 @@ class _SignUpPageState extends State<SignUpPage> {
       initialValue: '',
       decoration: InputDecoration(
         hintText: 'first name',
+        fillColor: Colors.white,
+        filled: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -38,6 +40,8 @@ class _SignUpPageState extends State<SignUpPage> {
       initialValue: '',
       decoration: InputDecoration(
         hintText: 'last name',
+        fillColor: Colors.white,
+        filled: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -50,6 +54,8 @@ class _SignUpPageState extends State<SignUpPage> {
       initialValue: '',
       decoration: InputDecoration(
         hintText: 'email',
+        fillColor: Colors.white,
+        filled: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -62,6 +68,8 @@ class _SignUpPageState extends State<SignUpPage> {
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
+        fillColor: Colors.white,
+        filled: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -77,19 +85,19 @@ class _SignUpPageState extends State<SignUpPage> {
           Navigator.of(context).pushNamed(HomePage.tag);
         },
         padding: EdgeInsets.all(12),
-        color: Colors.lightBlueAccent,
-        child: Text('CREATE ACCOUNT', style: TextStyle(color: Colors.white)),
+        color: Colors.white,
+        child: Text('Register', style: TextStyle(color: Colors.black)),
       ),
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(2, 30, 126, 1.0),
       body: Center(
         child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
-            logo,
+            logoLabel,
             SizedBox(height: 48.0),
             firstname,
             SizedBox(height: 8.0),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:fintech_app/transaction.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -27,9 +28,13 @@ class _HomePageState extends State<HomePage> {
       (
         appBar: AppBar
           (
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
           elevation: 2.0,
-          backgroundColor: Colors.white,
-          title: Text('Dashboard', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 30.0)),
+          backgroundColor: Color.fromRGBO(2, 30, 126, 1.0),
+          title: Text('Dashboard', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22.0)),
           actions: <Widget>
           [
             Container
@@ -41,8 +46,8 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>
                 [
-                  Text('Account 1', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700, fontSize: 14.0)),
-                  Icon(Icons.arrow_drop_down, color: Colors.black54)
+                  Text('Account 1', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14.0)),
+                  Icon(Icons.arrow_drop_down, color: Colors.white)
                 ],
               ),
             )
@@ -134,12 +139,66 @@ class _HomePageState extends State<HomePage> {
                           child: Padding
                             (
                             padding: EdgeInsets.all(16.0),
-                            child: Icon(Icons.notifications, color: Colors.white, size: 30.0),
+                            child: Icon(Icons.account_balance_wallet, color: Colors.white, size: 30.0),
                           )
                       ),
                       Padding(padding: EdgeInsets.only(bottom: 16.0)),
-                      Text('Alerts', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 24.0)),
-                      Text('All ', style: TextStyle(color: Colors.black45)),
+                      Text('Manage', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 24.0)),
+                      Text('Debit Card', style: TextStyle(color: Colors.black45)),
+                    ]
+                ),
+              ),
+            ),
+            _buildTile(
+              Padding
+                (
+                padding: const EdgeInsets.all(24.0),
+                child: Column
+                  (
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>
+                    [
+                      Material
+                        (
+                          color: Colors.blue,
+                          shape: CircleBorder(),
+                          child: Padding
+                            (
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.all_inclusive, color: Colors.white, size: 30.0),
+                          )
+                      ),
+                      Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                      Text('Send', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 24.0)),
+                      Text('Funds', style: TextStyle(color: Colors.black45)),
+                    ]
+                ),
+              ),
+            ),
+            _buildTile(
+              Padding
+                (
+                padding: const EdgeInsets.all(24.0),
+                child: Column
+                  (
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>
+                    [
+                      Material
+                        (
+                          color: Colors.deepOrangeAccent,
+                          shape: CircleBorder(),
+                          child: Padding
+                            (
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.toys, color: Colors.white, size: 30.0),
+                          )
+                      ),
+                      Padding(padding: EdgeInsets.only(bottom: 16.0)),
+                      Text('Reports', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 24.0)),
+                      Text('', style: TextStyle(color: Colors.black45)),
                     ]
                 ),
               ),
@@ -206,8 +265,9 @@ class _HomePageState extends State<HomePage> {
             StaggeredTile.extent(2, 110.0),
             StaggeredTile.extent(1, 180.0),
             StaggeredTile.extent(1, 180.0),
+            StaggeredTile.extent(1, 180.0),
+            StaggeredTile.extent(1, 180.0),
             StaggeredTile.extent(2, 220.0),
-            StaggeredTile.extent(2, 110.0),
           ],
         )
     );
@@ -221,7 +281,10 @@ class _HomePageState extends State<HomePage> {
         child: InkWell
           (
           // Do onTap() if it isn't null, otherwise do print()
-            onTap: onTap != null ? () => onTap() : () { print('Not set yet'); },
+            onTap: onTap != null ? () => onTap() : () {
+              Navigator.of(context).pushNamed(TransactionPage.tag);
+              print('Not set yet');
+              },
             child: child
         )
     );

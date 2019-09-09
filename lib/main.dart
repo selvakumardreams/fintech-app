@@ -3,10 +3,11 @@ import 'package:fintech_app/signup_page.dart';
 import 'package:flutter/material.dart';
 
 
-import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'home_page.dart';
 import 'signup_page.dart';
+import 'transaction.dart';
+import 'card_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
     LoginPage.tag: (context) => LoginPage(),
     HomePage.tag: (context) => HomePage(),
     SignUpPage.tag: (context) => SignUpPage(),
+    TransactionPage.tag: (context) => TransactionPage(),
+    CardWidget.tag: (context) => CardWidget(),
   };
 
   @override
