@@ -1,4 +1,4 @@
-import 'package:fintech_app/home_page.dart';
+import 'package:diafcon/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:async';
@@ -57,7 +57,7 @@ class _TransactionPageState extends State<TransactionPage> {
 
    _fetchPost() async {
 
-      String url = 'https://api.openbankproject.com/my/logins/direct';
+/*      String url = 'https://api.openbankproject.com/my/logins/direct';
       Map<String, String> headers = {'Authorization': 'DirectLogin username="selvaopen",password="xxxx",consumer_key="dsg5i2pq1n4hdeqihmbo2tme1ozkedspbh11zzxr"'};
       Response response = await post(url, headers: headers);
       String token = json.decode(response.body)['token'];
@@ -67,7 +67,7 @@ class _TransactionPageState extends State<TransactionPage> {
       print(headers_transactions);
 
       String transaction_url = url + '/obp/v3.1.0/banks/gh.29.uk/accounts/{3}/owner/transactions';
-      Response response_transcation = await get(transaction_url, headers: headers_transactions);
+      Response response_transcation = await get(transaction_url, headers: headers_transactions);*/
     }
 }
 

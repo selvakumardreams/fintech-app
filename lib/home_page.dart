@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:fintech_app/transaction.dart';
+import 'package:diafcon/transaction.dart';
+import 'package:diafcon/card_page.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -148,6 +149,9 @@ class _HomePageState extends State<HomePage> {
                     ]
                 ),
               ),
+                onTap: () {
+                  Navigator.of(context).pushNamed(CardWidget.tag);
+                }
             ),
             _buildTile(
               Padding
@@ -202,6 +206,9 @@ class _HomePageState extends State<HomePage> {
                     ]
                 ),
               ),
+              onTap: () {
+                Navigator.of(context).pushNamed(TransactionPage.tag);
+              }
             ),
             _buildTile(
               Padding
@@ -225,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>
                             [
-                              Text('Revenue', style: TextStyle(color: Colors.green)),
+                              Text('Revenue', style: TextStyle(color: Colors.blueAccent)),
                               Text('16K DKK', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 34.0)),
                             ],
                           ),
@@ -254,11 +261,12 @@ class _HomePageState extends State<HomePage> {
                         (
                         data: charts[actualChart],
                         lineWidth: 5.0,
-                        lineColor: Colors.greenAccent,
+                        lineColor: Colors.blue,
                       )
                     ],
                   )
               ),
+              onTap:null,
             ),
           ],
           staggeredTiles: [
@@ -273,6 +281,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _handleTap() {
+    print("I am tap");
+  }
+
   Widget _buildTile(Widget child, {Function() onTap}) {
     return Material(
         elevation: 14.0,
@@ -282,8 +294,7 @@ class _HomePageState extends State<HomePage> {
           (
           // Do onTap() if it isn't null, otherwise do print()
             onTap: onTap != null ? () => onTap() : () {
-              Navigator.of(context).pushNamed(TransactionPage.tag);
-              print('Not set yet');
+                print('Not set yet');
               },
             child: child
         )

@@ -1,5 +1,5 @@
-name: fintech_app
-description: A new Flutter application.
+name: diafcon
+description: Fintech Application.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -43,7 +43,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/logo.png
+    - assets/logo.jpg
     - assets/home.png
   #  - images/a_dot_ham.jpeg
 

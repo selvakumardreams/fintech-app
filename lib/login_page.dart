@@ -1,6 +1,6 @@
-import 'package:fintech_app/signup_page.dart';
-import 'package:fintech_app/home_page.dart';
-import 'package:fintech_app/card_page.dart';
+import 'package:diafcon/signup_page.dart';
+import 'package:diafcon/home_page.dart';
+import 'package:diafcon/card_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -15,12 +15,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
 
-    final logoLabel = FlatButton(
-      child: Text(
-        'Diaxfcon',
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 30.0),
+    final logo = Hero(
+      tag: 'hero',
+      child: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 80.0,
+        child: Image.asset('assets/logo.jpg'),
       ),
-      onPressed: () {},
     );
 
     final email = TextFormField(
@@ -84,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
         style: TextStyle(color: Colors.white),
       ),
       onPressed: () {
-        Navigator.of(context).pushNamed(CardWidget.tag);
+        // Navigator.of(context).pushNamed(CardWidget.tag);
       },
     );
 
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
-            logoLabel,
+            logo,
             SizedBox(height: 48.0),
             email,
             SizedBox(height: 8.0),

@@ -1,5 +1,5 @@
-import 'package:fintech_app/login_page.dart';
-import 'package:fintech_app/signup_page.dart';
+import 'package:diafcon/login_page.dart';
+import 'package:diafcon/signup_page.dart';
 import 'package:flutter/material.dart';
 
 

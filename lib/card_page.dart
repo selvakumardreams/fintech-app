@@ -91,7 +91,7 @@ class _CardWidget extends State<CardWidget> {
                     padding: EdgeInsets.all(20),
                     //color: Colors.grey,
                     child: Text(
-                      'Diaxfcon',
+                      'Diafcon',
                       textAlign: TextAlign.left,
                       style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22.0),
                     ),
