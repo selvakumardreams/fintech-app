@@ -1,33 +1,32 @@
+import 'dart:wasm';
+
 import 'package:diafcon/signup_page.dart';
 import 'package:diafcon/home_page.dart';
 import 'package:diafcon/card_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:simple_permissions/simple_permissions.dart';
 
+import 'model/login.dart';
 
-
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   static String tag = 'login-page';
-  @override
-  _LoginPageState createState() => new _LoginPageState();
-}
+  final Login login;
 
-class _LoginPageState extends State<LoginPage> {
+  const LoginPage({Key key, this.login}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 80.0,
-        child: Image.asset('assets/logo.jpg'),
-      ),
+    final logo = Image(
+      image: AssetImage("assets/logo.jpg"),
+      height: 60.0,
+      fit: BoxFit.cover,
     );
 
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      initialValue: '',
+      initialValue: login.username,
       decoration: InputDecoration(
         hintText: 'Email',
         fillColor: Colors.white,
@@ -39,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final password = TextFormField(
       autofocus: false,
-      initialValue: '',
+      initialValue: 'somepassword',
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
@@ -50,13 +49,13 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-     final createButton = FlatButton(
+    final createButton = FlatButton(
       child: Text(
         'Don\'t have an account? Sign up here',
-        style: TextStyle(color: Colors.white,
+        style: TextStyle(
+            color: Colors.white,
             fontSize: 16,
-          decoration: TextDecoration.underline
-        ),
+            decoration: TextDecoration.underline),
       ),
       onPressed: () {
         Navigator.of(context).pushNamed(SignUpPage.tag);
@@ -70,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () {
+          Navigator.of(context, rootNavigator: true).pop();
           Navigator.of(context).pushNamed(HomePage.tag);
         },
         padding: EdgeInsets.all(12),
@@ -77,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
         child: Text('Lets get Started', style: TextStyle(color: Colors.black)),
       ),
     );
-
 
     final forgotLabel = FlatButton(
       child: Text(

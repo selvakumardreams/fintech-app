@@ -13,6 +13,7 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
+  simple_permissions:
   flutter:
     sdk: flutter
 
@@ -21,13 +22,27 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_sparkline: ^0.1.0
   flutter_staggered_grid_view: ^0.3.0
+  introduction_screen: ^1.0.7
   http: ^0.12.0
+  shared_preferences: ^0.5.6
+  firebase_core: ^0.4.3
+  firebase_auth: ^0.15.2
+  google_sign_in: ^4.1.0
+  firebase_database: ^3.1.1
+  random_color: ^1.0.3
+  material_design_icons_flutter: ^3.4.4795
+  path_provider: ^1.5.1
+  scoped_model: ^1.0.1
+  charts_flutter: ^0.8.1
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   validators: ^2.0.0
   masked_text_input_formatter: "0.0.1"
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -44,7 +59,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logo.jpg
-    - assets/home.png
+    - assets/budget.png
+    - assets/mortgage.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

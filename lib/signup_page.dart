@@ -1,7 +1,6 @@
 import 'package:diafcon/home_page.dart';
 import 'package:flutter/material.dart';
 
-
 class SignUpPage extends StatefulWidget {
   static String tag = 'signup-page';
   @override
@@ -12,13 +11,10 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
 
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 80.0,
-        child: Image.asset('assets/logo.jpg'),
-      ),
+    final logo = Image(
+      image: AssetImage("assets/logo.jpg"),
+      height: 60.0,
+      fit: BoxFit.cover,
     );
 
     final firstname = TextFormField(
@@ -34,7 +30,6 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
 
-
     final lastname = TextFormField(
       keyboardType: TextInputType.text,
       autofocus: false,
@@ -48,7 +43,6 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
 
-
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -61,7 +55,6 @@ class _SignUpPageState extends State<SignUpPage> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
-
 
     final password = TextFormField(
       autofocus: false,
