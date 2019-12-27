@@ -1,5 +1,5 @@
-import 'package:diafcon/model/category.dart';
-import 'package:diafcon/model/expense.dart';
+import 'package:diafcon/models/category.dart';
+import 'package:diafcon/models/expense.dart';
 import 'package:diafcon/pages/edit_expense.dart';
 import 'package:diafcon/main.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ class ExpenseTile extends StatelessWidget {
   final String currency;
   final Function expenseCategory;
   final Function deleteExpense;
+
   ExpenseTile(this.expense, this.index, this.expenseCategory, this.currency,
       this.deleteExpense);
 
@@ -68,23 +69,23 @@ class ExpenseTile extends StatelessWidget {
           ),
           expense.note != ""
               ? Expanded(
-            flex: 2,
-            child: Container(
-                padding: EdgeInsets.all(20.0),
-                child: ListView(
-                  children: <Widget>[
-                    Text(
-                      expense.note,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.justify,
-                      maxLines: 8,
-                    ),
-                  ],
-                )),
-          )
+                  flex: 2,
+                  child: Container(
+                      padding: EdgeInsets.all(20.0),
+                      child: ListView(
+                        children: <Widget>[
+                          Text(
+                            expense.note,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.justify,
+                            maxLines: 8,
+                          ),
+                        ],
+                      )),
+                )
               : Container(),
           Expanded(
             flex: 1,
@@ -116,10 +117,10 @@ class ExpenseTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final category = expenseCategory(expense.category);
     List<String> date =
-    DateTime.fromMillisecondsSinceEpoch(int.parse(expense.createdAt))
-        .toIso8601String()
-        .substring(0, 10)
-        .split("-");
+        DateTime.fromMillisecondsSinceEpoch(int.parse(expense.createdAt))
+            .toIso8601String()
+            .substring(0, 10)
+            .split("-");
 
     return Dismissible(
       onDismissed: (direction) {
@@ -219,10 +220,10 @@ class ExpenseTile extends StatelessWidget {
                   child: Text(currency +
                       (currency == "€"
                           ? (double.parse(expense.amount) / 100)
-                          .toStringAsFixed(2)
-                          .replaceAll(".", ",")
+                              .toStringAsFixed(2)
+                              .replaceAll(".", ",")
                           : (double.parse(expense.amount) / 100)
-                          .toStringAsFixed(2))),
+                              .toStringAsFixed(2))),
                 ),
                 trailing: Text(currency == "\$"
                     ? "${date[1]}-${date[2]}-${date[0]}"

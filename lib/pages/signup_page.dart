@@ -1,20 +1,14 @@
-import 'dart:wasm';
-
-import 'package:diafcon/signup_page.dart';
-import 'package:diafcon/home_page.dart';
-import 'package:diafcon/card_page.dart';
+import 'package:diafcon/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:simple_permissions/simple_permissions.dart';
 
-import 'model/login.dart';
+class SignUpPage extends StatefulWidget {
+  static String tag = 'signup-page';
 
-class LoginPage extends StatelessWidget {
-  static String tag = 'login-page';
-  final Login login;
+  @override
+  _SignUpPageState createState() => new _SignUpPageState();
+}
 
-  const LoginPage({Key key, this.login}) : super(key: key);
-
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     final logo = Image(
@@ -23,12 +17,38 @@ class LoginPage extends StatelessWidget {
       fit: BoxFit.cover,
     );
 
+    final firstname = TextFormField(
+      keyboardType: TextInputType.text,
+      autofocus: false,
+      initialValue: '',
+      decoration: InputDecoration(
+        hintText: 'first name',
+        fillColor: Colors.white,
+        filled: true,
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      ),
+    );
+
+    final lastname = TextFormField(
+      keyboardType: TextInputType.text,
+      autofocus: false,
+      initialValue: '',
+      decoration: InputDecoration(
+        hintText: 'last name',
+        fillColor: Colors.white,
+        filled: true,
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      ),
+    );
+
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      initialValue: login.username,
+      initialValue: '',
       decoration: InputDecoration(
-        hintText: 'Email',
+        hintText: 'email',
         fillColor: Colors.white,
         filled: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -38,7 +58,7 @@ class LoginPage extends StatelessWidget {
 
     final password = TextFormField(
       autofocus: false,
-      initialValue: 'somepassword',
+      initialValue: '',
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',
@@ -49,19 +69,6 @@ class LoginPage extends StatelessWidget {
       ),
     );
 
-    final createButton = FlatButton(
-      child: Text(
-        'Don\'t have an account? Sign up here',
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            decoration: TextDecoration.underline),
-      ),
-      onPressed: () {
-        Navigator.of(context).pushNamed(SignUpPage.tag);
-      },
-    );
-
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: RaisedButton(
@@ -69,23 +76,16 @@ class LoginPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () {
-          Navigator.of(context, rootNavigator: true).pop();
-          Navigator.of(context).pushNamed(HomePage.tag);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
         },
         padding: EdgeInsets.all(12),
         color: Colors.white,
-        child: Text('Lets get Started', style: TextStyle(color: Colors.black)),
+        child: Text('Register', style: TextStyle(color: Colors.black)),
       ),
-    );
-
-    final forgotLabel = FlatButton(
-      child: Text(
-        'By logging in you agree to our Terms and Conditions and confirm that you\'ve read our Privacy Policy',
-        style: TextStyle(color: Colors.white),
-      ),
-      onPressed: () {
-        // Navigator.of(context).pushNamed(CardWidget.tag);
-      },
     );
 
     return Scaffold(
@@ -97,13 +97,15 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             logo,
             SizedBox(height: 48.0),
+            firstname,
+            SizedBox(height: 8.0),
+            lastname,
+            SizedBox(height: 8.0),
             email,
             SizedBox(height: 8.0),
             password,
-            SizedBox(height: 10.0),
-            loginButton,
-            createButton,
-            forgotLabel
+            SizedBox(height: 8.0),
+            loginButton
           ],
         ),
       ),

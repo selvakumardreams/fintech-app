@@ -1,13 +1,15 @@
-import 'package:diafcon/model/category.dart';
-import 'package:diafcon/model/expense.dart';
-import 'package:diafcon/scoped_models/main.dart';
+import 'package:diafcon/models/category.dart';
+import 'package:diafcon/models/expense.dart';
+import 'package:diafcon/scoped_models/app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:diafcon/main.dart';
 
 class EditExpense extends StatefulWidget {
   final Expense expense;
+
   EditExpense(this.expense);
+
   @override
   State<StatefulWidget> createState() {
     return _EditExpenseState();
@@ -24,12 +26,12 @@ class _EditExpenseState extends State<EditExpense> {
     super.initState();
 
     _categoryVal =
-    widget.expense.category == "" ? "0" : widget.expense.category;
+        widget.expense.category == "" ? "0" : widget.expense.category;
     _formData = {
       "title": widget.expense.title,
       "amount": (double.parse(widget.expense.amount) / 100).toStringAsFixed(2),
       "createdAt": DateTime.fromMillisecondsSinceEpoch(
-          int.parse(widget.expense.createdAt))
+              int.parse(widget.expense.createdAt))
           .millisecondsSinceEpoch,
       "note": widget.expense.note,
     };
@@ -103,7 +105,7 @@ class _EditExpenseState extends State<EditExpense> {
         onSaved: (String value) => _formData["amount"] = value,
         validator: (String value) {
           if (!RegExp(
-              r"^\-?\(?\$?\s*\-?\s*\(?(((\d{1,3}((\,\d{3})*|\d*))?(\.\d{1,4})?)|((\d{1,3}((\,\d{3})*|\d*))(\.\d{0,4})?))\)?$")
+                  r"^\-?\(?\$?\s*\-?\s*\(?(((\d{1,3}((\,\d{3})*|\d*))?(\.\d{1,4})?)|((\d{1,3}((\,\d{3})*|\d*))(\.\d{0,4})?))\)?$")
               .hasMatch(value)) {
             return "Please enter a valid amount\n";
           }
@@ -188,7 +190,7 @@ class _EditExpenseState extends State<EditExpense> {
           DateTime date = await showDatePicker(
             context: context,
             initialDate:
-            DateTime.fromMillisecondsSinceEpoch(_formData["createdAt"]),
+                DateTime.fromMillisecondsSinceEpoch(_formData["createdAt"]),
             firstDate: DateTime(2000),
             lastDate: DateTime(3000),
           );
@@ -318,7 +320,7 @@ class _EditExpenseState extends State<EditExpense> {
     );
   }
 
-  _buildForm(MainModel model) {
+  _buildForm(AppModel model) {
     return Container(
       padding: EdgeInsets.all(10),
       child: SingleChildScrollView(
@@ -373,11 +375,11 @@ class _EditExpenseState extends State<EditExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MainModel>(
-      builder: (BuildContext context, Widget widget, MainModel model) {
+    return ScopedModelDescendant<AppModel>(
+      builder: (BuildContext context, Widget widget, AppModel model) {
         return Scaffold(
           backgroundColor:
-          deviceTheme == "light" ? Colors.grey[100] : Colors.grey[900],
+              deviceTheme == "light" ? Colors.grey[100] : Colors.grey[900],
           body: GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(new FocusNode());

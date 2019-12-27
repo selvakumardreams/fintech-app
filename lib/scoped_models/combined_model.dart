@@ -1,16 +1,15 @@
-import 'package:diafcon/model/category.dart';
-import 'package:diafcon/model/expense.dart';
-import 'package:diafcon/model/preference.dart';
-import 'package:diafcon/model/user.dart';
+import 'package:diafcon/models/category.dart';
+import 'package:diafcon/models/expense.dart';
+import 'package:diafcon/models/preference.dart';
+import 'package:diafcon/models/user.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:firebase_database/firebase_database.dart';
-
 
 final List<Category> defaultCategories = [
   Category("1", "Bills", MdiIcons.fileDocument),
@@ -32,7 +31,7 @@ final ThemeData darkTheme = ThemeData(
   primaryColorLight: Colors.grey,
 );
 
-mixin CombinedModel on Model {
+mixin CoreModel on Model {
   User _authUser;
   List<Expense> _expenses = [];
   bool _synced = false;
@@ -74,10 +73,10 @@ mixin CombinedModel on Model {
   }
 }
 
-mixin FilterModel on CombinedModel {
+mixin FilterModel on CoreModel {
   Category expenseCategory(String categoryId) {
     Category cat = _userPreferences.categories.firstWhere(
-            (category) => category.id == categoryId,
+        (category) => category.id == categoryId,
         orElse: () => Category("0", ""));
     return cat;
   }
@@ -163,6 +162,8 @@ mixin FilterModel on CombinedModel {
       actualCurrency = '£';
     } else if (currency == 'fr') {
       actualCurrency = '€';
+    } else if (currency == 'da') {
+      actualCurrency = 'kr.';
     } else {
       actualCurrency = '\$';
     }
@@ -173,7 +174,7 @@ mixin FilterModel on CombinedModel {
   }
 }
 
-mixin ExpensesModel on CombinedModel {
+mixin ExpensesModel on CoreModel {
   List<Expense> get allExpenses {
     return List.from(_expenses);
   }
@@ -182,10 +183,10 @@ mixin ExpensesModel on CombinedModel {
     List<Expense> output = [];
 
     _expenses.forEach(
-          (expense) {
+      (expense) {
         if (expense != null) {
           Category category = _userPreferences.categories.firstWhere(
-                  (category) => category.id == expense.category,
+              (category) => category.id == expense.category,
               orElse: () => Category("0", "empty"));
           if (category.show || category.name == "empty") {
             output.add(expense);
@@ -212,7 +213,7 @@ mixin ExpensesModel on CombinedModel {
     }).toList();
 
     finalOutput.sort(
-          (a, b) {
+      (a, b) {
         if (_sortBy == "date") {
           return b.createdAt.compareTo(a.createdAt);
         } else if (_sortBy == "amount") {
@@ -371,17 +372,19 @@ mixin ExpensesModel on CombinedModel {
   }
 }
 
-mixin UserModel on CombinedModel {
+mixin UserModel on CoreModel {
   User get authenticatedUser {
     return _authUser;
   }
 
   void changeUserName(String name) async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    UserUpdateInfo updates = UserUpdateInfo();
-    updates.displayName = name;
-    await user.updateProfile(updates);
-    updateUserName(name);
+/*
+    firebaseuser user = await firebaseauth.instance.currentuser();
+    userupdateinfo updates = userupdateinfo();
+    updates.displayname = name;
+    await user.updateprofile(updates);
+    updateusername(name);
+*/
   }
 
   void updateUserName(String newName) {

@@ -1,13 +1,13 @@
-import 'package:diafcon/model/expense.dart';
+import 'package:diafcon/models/expense.dart';
 import 'package:diafcon/pages/expense_overview.dart';
-import 'package:diafcon/scoped_models/main.dart';
+import 'package:diafcon/scoped_models/app_model.dart';
 import 'package:diafcon/widgets/expenses/expense_tile.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'dart:core';
 import 'dart:async';
 
-import 'package:diafcon/model/user.dart';
+import 'package:diafcon/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:diafcon/main.dart';
@@ -45,7 +45,7 @@ class _ExpenseListState extends State<ExpenseList> {
     if (difference.inMinutes < 10) {
       Scaffold.of(context).showSnackBar(SnackBar(
         backgroundColor:
-        deviceTheme == "light" ? Colors.blueAccent : Colors.blue[800],
+            deviceTheme == "light" ? Colors.blueAccent : Colors.blue[800],
         content: Text(
             "Next update available in ${10 - difference.inMinutes} minutes."),
         action: SnackBarAction(
@@ -73,7 +73,7 @@ class _ExpenseListState extends State<ExpenseList> {
       setExpenses(expenses);
       Scaffold.of(context).showSnackBar(SnackBar(
         backgroundColor:
-        deviceTheme == "light" ? Colors.blueAccent : Colors.blue[800],
+            deviceTheme == "light" ? Colors.blueAccent : Colors.blue[800],
         content: Text("Next update available in 10 minutes."),
         action: SnackBarAction(
           onPressed: () {
@@ -88,8 +88,8 @@ class _ExpenseListState extends State<ExpenseList> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MainModel>(
-      builder: (BuildContext context, Widget widget, MainModel model) {
+    return ScopedModelDescendant<AppModel>(
+      builder: (BuildContext context, Widget widget, AppModel model) {
         List<Expense> expenses = model.filteredExpenses;
         double total = 0;
         expenses.forEach((expense) {
@@ -111,7 +111,7 @@ class _ExpenseListState extends State<ExpenseList> {
                 automaticallyImplyLeading: false,
                 pinned: false,
                 floating: false,
-                expandedHeight: 260.0,
+                expandedHeight: 200.0,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Container(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 40),
@@ -167,16 +167,13 @@ class _ExpenseListState extends State<ExpenseList> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
                           Wrap(
                             children: <Widget>[
                               Text(
                                 expenses.length.toString(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 30.0,
+                                  fontSize: 10.0,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -187,7 +184,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                 "expenses totalling",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 30.0,
+                                  fontSize: 10.0,
                                   fontWeight: FontWeight.w300,
                                 ),
                               ),
@@ -198,7 +195,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                 "${model.userCurrency}${model.userCurrency == "€" ? total.toStringAsFixed(2).replaceAll(".", ",") : total.toStringAsFixed(2)}",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 30.0,
+                                  fontSize: 10.0,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -214,7 +211,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                 "Currently sorting by ",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 17,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w300,
                                 ),
                               ),
@@ -222,14 +219,11 @@ class _ExpenseListState extends State<ExpenseList> {
                                 "${model.sortBy}",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 17,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
-                          ),
-                          SizedBox(
-                            height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -310,7 +304,7 @@ class _ExpenseListState extends State<ExpenseList> {
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
+                  (BuildContext context, int index) {
                     return ExpenseTile(
                         expenses[index],
                         index,

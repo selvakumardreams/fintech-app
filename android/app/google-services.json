@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "602617045526",
+    "firebase_url": "https://diafcon-3113f.firebaseio.com",
+    "project_id": "diafcon-3113f",
+    "storage_bucket": "diafcon-3113f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602617045526:android:9b7b2a5f146af05ef40b37",
+        "android_client_info": {
+          "package_name": "com.hopelabs.fintechapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602617045526-glvd5039msh3udha5mql846c4utsloho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hopelabs.fintechapp",
+            "certificate_hash": "4d36b2a4bfd057d78f833d3e996473fa5fccabd4"
+          }
+        },
+        {
+          "client_id": "602617045526-oiap60sveicivb0v7o7tiffutcr4gvic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwKkNb8WEy6-KENnuiJGW-YVo8PglkUyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602617045526-oiap60sveicivb0v7o7tiffutcr4gvic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

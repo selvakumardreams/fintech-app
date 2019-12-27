@@ -1,8 +1,8 @@
-import 'package:diafcon/model/category.dart';
+import 'package:diafcon/models/category.dart';
+import 'package:diafcon/scoped_models/app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:diafcon/main.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:diafcon/scoped_models/main.dart';
 
 class AddExpense extends StatefulWidget {
   @override
@@ -87,7 +87,7 @@ class _AddExpenseState extends State<AddExpense> {
         onSaved: (String value) => _formData["amount"] = value,
         validator: (String value) {
           if (!RegExp(
-              r"^\-?\(?\$?\s*\-?\s*\(?(((\d{1,3}((\,\d{3})*|\d*))?(\.\d{1,4})?)|((\d{1,3}((\,\d{3})*|\d*))(\.\d{0,4})?))\)?$")
+                  r"^\-?\(?\$?\s*\-?\s*\(?(((\d{1,3}((\,\d{3})*|\d*))?(\.\d{1,4})?)|((\d{1,3}((\,\d{3})*|\d*))(\.\d{0,4})?))\)?$")
               .hasMatch(value)) {
             return "Please enter a valid amount\n";
           }
@@ -172,7 +172,7 @@ class _AddExpenseState extends State<AddExpense> {
           DateTime date = await showDatePicker(
             context: context,
             initialDate:
-            DateTime.fromMillisecondsSinceEpoch(_formData["createdAt"]),
+                DateTime.fromMillisecondsSinceEpoch(_formData["createdAt"]),
             firstDate: DateTime(2000),
             lastDate: DateTime(3000),
           );
@@ -220,9 +220,7 @@ class _AddExpenseState extends State<AddExpense> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        color: deviceTheme == "light"
-            ? Theme.of(context).accentColor
-            : Colors.grey[800],
+        color:  Color.fromRGBO(2, 30, 126, 1.0),
       ),
       child: MaterialButton(
         onPressed: () {
@@ -270,9 +268,10 @@ class _AddExpenseState extends State<AddExpense> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        color: deviceTheme == "light"
+/*        color: deviceTheme == "light"
             ? Theme.of(context).accentColor
-            : Colors.grey[800],
+            : Colors.grey[800],*/
+        color:  Color.fromRGBO(2, 30, 126, 1.0),
       ),
       child: MaterialButton(
         minWidth: 150,
@@ -355,8 +354,8 @@ class _AddExpenseState extends State<AddExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MainModel>(
-      builder: (BuildContext context, _, MainModel model) {
+    return ScopedModelDescendant<AppModel>(
+      builder: (BuildContext context, _, AppModel model) {
         return Scaffold(
           body: GestureDetector(
             onTap: () {
@@ -366,9 +365,7 @@ class _AddExpenseState extends State<AddExpense> {
               slivers: <Widget>[
                 SliverAppBar(
                   automaticallyImplyLeading: false,
-                  backgroundColor: deviceTheme == "light"
-                      ? Theme.of(context).accentColor
-                      : Colors.grey[900],
+                  backgroundColor: Color.fromRGBO(2, 30, 126, 1.0),
                   expandedHeight: 80,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(

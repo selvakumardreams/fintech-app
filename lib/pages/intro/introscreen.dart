@@ -1,14 +1,12 @@
+import 'package:diafcon/pages/login.dart';
+import 'package:diafcon/pages/signup_page.dart';
+import 'package:diafcon/widgets/intro/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
 import 'budget_intro.dart';
-import 'dots_indicator.dart';
-import 'login_page.dart';
-import 'model/login.dart';
 import 'mortgage_intro.dart';
 import 'package:flutter/services.dart';
-import 'package:simple_permissions/simple_permissions.dart';
-
-import 'signup_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class _IntroScreenPageState extends State<IntroScreenMainPage> {
   final _controller = new PageController();
@@ -17,14 +15,11 @@ class _IntroScreenPageState extends State<IntroScreenMainPage> {
   List<dynamic> emailList = <dynamic>[];
 
   Future<void> _getEmails() async {
-    final result =
-        await SimplePermissions.checkPermission(Permission.ReadContacts);
-    if (!result) {
-      var status =
-          await SimplePermissions.requestPermission(Permission.ReadContacts);
-      if (status != PermissionStatus.authorized) {
-        print('Not Authorized');
-      }
+    final result = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.contacts);
+    if (result == PermissionStatus.granted) {
+      var status = await PermissionHandler()
+          .requestPermissions([PermissionGroup.contacts]);
     }
 
     try {
@@ -82,7 +77,7 @@ class _IntroScreenPageState extends State<IntroScreenMainPage> {
                   backgroundColor: Colors.transparent,
                   elevation: 0.0,
                   primary: false,
-                  actions: <Widget>[
+/*                  actions: <Widget>[
                     FlatButton(
                       child: Text(
                         isDone ? 'DONE' : 'NEXT',
@@ -98,7 +93,7 @@ class _IntroScreenPageState extends State<IntroScreenMainPage> {
                                   curve: Curves.easeIn);
                             },
                     )
-                  ],
+                  ],*/
                 ),
               ),
             ),
@@ -126,7 +121,7 @@ class _IntroScreenPageState extends State<IntroScreenMainPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        new Container(
+                    /*    new Container(
                           width: 150.0,
                           height: 50.0,
                           decoration: BoxDecoration(
@@ -148,8 +143,12 @@ class _IntroScreenPageState extends State<IntroScreenMainPage> {
                                     .button
                                     .copyWith(color: Colors.white),
                               ),
-                              onPressed: (){
-                                Navigator.of(context).pushNamed(SignUpPage.tag);
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => SignUpPage(),
+                                  ),
+                                );
                               },
                               highlightColor: Colors.blue.withOpacity(0.5),
                               splashColor: Colors.blue.withOpacity(0.5),
@@ -157,7 +156,7 @@ class _IntroScreenPageState extends State<IntroScreenMainPage> {
                             color: Colors.transparent,
                             borderRadius: new BorderRadius.circular(30.0),
                           ),
-                        ),
+                        ),*/
                         new Container(
                           width: 150.0,
                           height: 50.0,
@@ -176,30 +175,13 @@ class _IntroScreenPageState extends State<IntroScreenMainPage> {
                                     .copyWith(color: Colors.white),
                               ),
                               onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (_) => new AlertDialog(
-                                          content: Container(
-                                            height: 200.0,
-                                            child: ListView.builder(
-                                              padding: new EdgeInsets.all(10.0),
-                                              itemCount: emailList.length,
-                                              itemBuilder: (context, int) {
-                                                return ListTile(
-                                                  leading: const Icon(Icons.email),
-                                                  title: Text(emailList[int]),
-                                                  onTap: () {
-                                                    Navigator.of(context, rootNavigator: true).pop();
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(builder: (context) => LoginPage(login: Login(emailList[int], "password") ))
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ));
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginScreen(),
+                                  ),
+                                );
                               },
                               highlightColor: Colors.white30,
                               splashColor: Colors.white30,
@@ -221,6 +203,7 @@ class _IntroScreenPageState extends State<IntroScreenMainPage> {
 
 class IntroScreenMainPage extends StatefulWidget {
   static String tag = 'intro-page';
+
   IntroScreenMainPage({Key key}) : super(key: key);
 
   @override

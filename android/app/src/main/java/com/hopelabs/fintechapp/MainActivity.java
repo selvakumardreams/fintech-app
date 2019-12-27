@@ -16,13 +16,14 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.MethodCall;
 
 public class MainActivity extends FlutterActivity {
-  private static final String CHANNEL = "hopelabs.fintechapp/email";
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    GeneratedPluginRegistrant.registerWith(this);
+    private static final String CHANNEL = "hopelabs.fintechapp/email";
 
-    new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        GeneratedPluginRegistrant.registerWith(this);
+
+        new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
                 new MethodCallHandler() {
                     @Override
                     public void onMethodCall(MethodCall call, Result result) {
@@ -48,5 +49,5 @@ public class MainActivity extends FlutterActivity {
                     }
                 }
         );
-  }
+    }
 }

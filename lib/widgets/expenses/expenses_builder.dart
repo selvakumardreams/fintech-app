@@ -1,6 +1,6 @@
-import 'package:diafcon/model/category.dart';
-import 'package:diafcon/model/expense.dart';
-import 'package:diafcon/scoped_models/main.dart';
+import 'package:diafcon/models/category.dart';
+import 'package:diafcon/models/expense.dart';
+import 'package:diafcon/scoped_models/app_model.dart';
 import 'package:diafcon/widgets/expenses/expense_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -9,8 +9,8 @@ import 'package:scoped_model/scoped_model.dart';
 class ExpensesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MainModel>(
-      builder: (BuildContext context, Widget widget, MainModel model) {
+    return ScopedModelDescendant<AppModel>(
+      builder: (BuildContext context, Widget widget, AppModel model) {
         if (model.syncStatus) {
           return ExpenseList();
         }

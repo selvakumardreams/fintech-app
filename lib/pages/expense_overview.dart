@@ -1,9 +1,10 @@
-import 'package:diafcon/scoped_models/main.dart';
+import 'package:diafcon/scoped_models/app_model.dart';
 import 'package:diafcon/utils/data_cruncher.dart';
 import 'package:diafcon/widgets/categories/category_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:diafcon/main.dart';
+
+import '../main.dart';
 
 class ExpenseOverview extends StatefulWidget {
   @override
@@ -18,16 +19,16 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MainModel>(
-      builder: (BuildContext context, Widget widget, MainModel model) {
+    return ScopedModelDescendant<AppModel>(
+      builder: (BuildContext context, Widget widget, AppModel model) {
         List topCategories = dataCruncher.getTopCategories(
             model.allCategories, model.allExpenses, model.userCurrency);
 
         return Scaffold(
           body: GestureDetector(
             onTap: () => FocusScope.of(context).requestFocus(
-              FocusNode(),
-            ),
+                  FocusNode(),
+                ),
             child: SafeArea(
               child: CustomScrollView(
                 slivers: <Widget>[
@@ -51,13 +52,13 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
                                   "Expense Overview",
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 35.0,
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 10,
                               ),
                               Column(
                                 children: <Widget>[
@@ -65,7 +66,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
                                     "Total Expenses:",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 30.0,
+                                      fontSize: 25.0,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -73,7 +74,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
                                     "${model.userCurrency}${dataCruncher.getTotal(model.allExpenses).toStringAsFixed(2)}",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 30.0,
+                                      fontSize: 20.0,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
@@ -101,7 +102,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
                                       "Total This ${timeSummary == "month" ? "Month" : "Week"}:",
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 30.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -111,7 +112,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
                                           : "${model.userCurrency}${dataCruncher.getWeekTotal(model.allExpenses).toStringAsFixed(2)}",
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 30.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -128,43 +129,40 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
                     pinned: true,
                     delegate: _SliverAppBarDelegate(
                         child: PreferredSize(
-                          preferredSize: Size.fromHeight(50.0),
-                          child: Container(
-                            color: deviceTheme == "light"
-                                ? Theme.of(context).accentColor
-                                : Colors.grey[900],
-                            child: Column(
+                      preferredSize: Size.fromHeight(50.0),
+                      child: Container(
+                        color: deviceTheme == "light"
+                            ? Theme.of(context).accentColor
+                            : Colors.grey[900],
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      'Breakdown by Category',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 25.0),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
+                                Text(
+                                  'Breakdown by Category',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 10.0),
                                 ),
                               ],
                             ),
-                          ),
-                        )),
+                          ],
+                        ),
+                      ),
+                    )),
                   ),
                   SliverPadding(
                     padding: EdgeInsets.symmetric(vertical: 5),
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
+                      (BuildContext context, int index) {
                         return CategorySummary(topCategories[index].name,
                             topCategories[index].total, model.userCurrency);
                       },

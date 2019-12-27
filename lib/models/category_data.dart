@@ -2,7 +2,6 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:random_color/random_color.dart';
 import 'package:flutter/material.dart';
 
-
 class CategoryData {
   final int id;
   final int count;

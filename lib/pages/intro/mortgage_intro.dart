@@ -1,32 +1,25 @@
+import 'package:diafcon/utils/assets.dart';
+import 'package:diafcon/widgets/intro/circles_with_image.dart';
 import 'package:flutter/material.dart';
-
-import 'assets.dart';
-import 'circles_with_image.dart';
 
 const double IMAGE_SIZE = 200.0;
 
-class BudgetIntroScreen extends StatelessWidget {
-
+class MortgageIntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
       height: double.infinity,
       width: double.infinity,
       decoration: new BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                Colors.blue[300],
-                Colors.blue[500],
-                Colors.blue[800],
-              ],
-              begin: Alignment(0.5, -1.0),
-              end: Alignment(0.5, 1.0)
-          )
-      ),
+          gradient: LinearGradient(colors: [
+        Colors.orange[400],
+        Colors.orange[600],
+        Colors.orange[900],
+      ], begin: Alignment(0.5, -1.0), end: Alignment(0.5, 1.0))),
       child: Stack(
         children: <Widget>[
           new Positioned(
-            child: new CircleWithImage("assets/budget.png"),
+            child: new CircleWithImage(Assets.mortgage),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
           ),
@@ -36,7 +29,7 @@ class BudgetIntroScreen extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                   child: Image(
-                    image: AssetImage("assets/budget.png"),
+                    image: AssetImage(Assets.mortgage),
                     fit: BoxFit.fitHeight,
                   ),
                   height: IMAGE_SIZE,
@@ -44,13 +37,21 @@ class BudgetIntroScreen extends StatelessWidget {
                 ),
                 new Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Budget',
-                    style: Theme.of(context).textTheme.display1.copyWith(color: Colors.white),
+                  child: Text(
+                    'Mortgage',
+                    style: Theme.of(context)
+                        .textTheme
+                        .display1
+                        .copyWith(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Text('Budget from Diafcon',
-                  style: Theme.of(context).textTheme.body1.copyWith(color: Colors.white),
+                Text(
+                  'Mortgage from Diafcon',
+                  style: Theme.of(context)
+                      .textTheme
+                      .body1
+                      .copyWith(color: Colors.white),
                   textAlign: TextAlign.center,
                 )
               ],

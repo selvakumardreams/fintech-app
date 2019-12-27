@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 String cardNumber;
 String cardHolderName;
 String month;
@@ -20,6 +19,7 @@ enum CardType {
 
 class CardWidget extends StatefulWidget {
   static String tag = 'card-page';
+
   @override
   _CardWidget createState() => _CardWidget();
 }
@@ -37,32 +37,35 @@ class _CardWidget extends State<CardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(2, 30, 126, 1.0),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Card', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22.0)),
+        title: Text('Card',
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 22.0)),
       ),
       body: SafeArea(
-          child:SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Card(
-                    margin:
-                    EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-                    elevation: 5.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                    child: cardDesign(context)),
-              ],
-            ),
-          )),
+          child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Card(
+                margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                child: cardDesign(context)),
+          ],
+        ),
+      )),
     );
   }
 
@@ -93,7 +96,10 @@ class _CardWidget extends State<CardWidget> {
                     child: Text(
                       'Diafcon',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22.0),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 22.0),
                     ),
                   ),
                 ),
@@ -173,82 +179,82 @@ class _CardWidget extends State<CardWidget> {
   //... CardNumber pattern Array....
 
   Map<CardType, Set<List<String>>> cardNumberPattern = {
-  CardType.visa: {
-  ['4'],
-  },
-  CardType.americanExpress: {
-  ['34'],
-  ['37'],
-  },
-  CardType.discover: {
-  ['6011'],
-  ['622126', '622925'],
-  ['644', '649'],
-  ['65']
-  },
-  CardType.mastercard: {
-  ['51', '55'],
-  ['2221', '2229'],
-  ['223', '229'],
-  ['23', '26'],
-  ['270', '271'],
-  ['2720'],
-  },
-  CardType.dinnerClub: {
-  ['54', '55'],
-  ['300', '305'],
-  ['3095'],
-  ['36'],
-  ['38', '39'],
-  },
-};
+    CardType.visa: {
+      ['4'],
+    },
+    CardType.americanExpress: {
+      ['34'],
+      ['37'],
+    },
+    CardType.discover: {
+      ['6011'],
+      ['622126', '622925'],
+      ['644', '649'],
+      ['65']
+    },
+    CardType.mastercard: {
+      ['51', '55'],
+      ['2221', '2229'],
+      ['223', '229'],
+      ['23', '26'],
+      ['270', '271'],
+      ['2720'],
+    },
+    CardType.dinnerClub: {
+      ['54', '55'],
+      ['300', '305'],
+      ['3095'],
+      ['36'],
+      ['38', '39'],
+    },
+  };
 
 // .... Detect card based on cardNumber.......
-CardType detectCardType(String cardNumber) {
-  //Default card type is other
-  CardType cardType = CardType.diaxfcon;
+  CardType detectCardType(String cardNumber) {
+    //Default card type is other
+    CardType cardType = CardType.diaxfcon;
 
-  if (cardNumber.isEmpty) {
+    if (cardNumber.isEmpty) {
+      return cardType;
+    }
+
+    cardNumberPattern.forEach(
+      (CardType type, Set<List<String>> patterns) {
+        for (List<String> patternRange in patterns) {
+          // Remove any spaces
+          String ccPatternStr =
+              cardNumber.replaceAll(RegExp(r'\s+\b|\b\s'), '');
+          final int rangeLen = patternRange[0].length;
+          // Trim the Credit Card number string to match the pattern prefix length
+          if (rangeLen < cardNumber.length) {
+            ccPatternStr = ccPatternStr.substring(0, rangeLen);
+          }
+
+          if (patternRange.length > 1) {
+            // Convert the prefix range into numbers then make sure the
+            // Credit Card num is in the pattern range.
+            // Because Strings don't have '>=' type operators
+            final int ccPrefixAsInt = int.parse(ccPatternStr);
+            final int startPatternPrefixAsInt = int.parse(patternRange[0]);
+            final int endPatternPrefixAsInt = int.parse(patternRange[1]);
+            if (ccPrefixAsInt >= startPatternPrefixAsInt &&
+                ccPrefixAsInt <= endPatternPrefixAsInt) {
+              // Found a match
+              cardType = type;
+              break;
+            }
+          } else {
+            // Just compare the single pattern prefix with the Credit Card prefix
+            if (ccPatternStr == patternRange[0]) {
+              // Found a match
+              cardType = type;
+              break;
+            }
+          }
+        }
+      },
+    );
+
     return cardType;
   }
-
-  cardNumberPattern.forEach(
-        (CardType type, Set<List<String>> patterns) {
-      for (List<String> patternRange in patterns) {
-        // Remove any spaces
-        String ccPatternStr =
-        cardNumber.replaceAll(RegExp(r'\s+\b|\b\s'), '');
-        final int rangeLen = patternRange[0].length;
-        // Trim the Credit Card number string to match the pattern prefix length
-        if (rangeLen < cardNumber.length) {
-          ccPatternStr = ccPatternStr.substring(0, rangeLen);
-        }
-
-        if (patternRange.length > 1) {
-          // Convert the prefix range into numbers then make sure the
-          // Credit Card num is in the pattern range.
-          // Because Strings don't have '>=' type operators
-          final int ccPrefixAsInt = int.parse(ccPatternStr);
-          final int startPatternPrefixAsInt = int.parse(patternRange[0]);
-          final int endPatternPrefixAsInt = int.parse(patternRange[1]);
-          if (ccPrefixAsInt >= startPatternPrefixAsInt &&
-              ccPrefixAsInt <= endPatternPrefixAsInt) {
-            // Found a match
-            cardType = type;
-            break;
-          }
-        } else {
-          // Just compare the single pattern prefix with the Credit Card prefix
-          if (ccPatternStr == patternRange[0]) {
-            // Found a match
-            cardType = type;
-            break;
-          }
-        }
-      }
-    },
-  );
-
-  return cardType;
-}
 }

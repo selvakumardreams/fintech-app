@@ -1,6 +1,6 @@
-import 'package:diafcon/model/category.dart';
-import 'package:diafcon/model/category_data.dart';
-import 'package:diafcon/model/expense.dart';
+import 'package:diafcon/models/category.dart';
+import 'package:diafcon/models/category_data.dart';
+import 'package:diafcon/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -11,7 +11,7 @@ class DataCruncher {
     List<Map<String, dynamic>> _categoryData = [];
 
     categories.forEach(
-          (category) {
+      (category) {
         _categoryData.add(
           {
             "domainID": Random().nextInt(1000000),
@@ -25,9 +25,9 @@ class DataCruncher {
     );
 
     expenses.forEach(
-          (expense) {
+      (expense) {
         _categoryData.forEach(
-              (category) {
+          (category) {
             if (expense.category == category["id"]) {
               category["count"] += 1;
               category["total"] += (double.parse(expense.amount) / 100).round();
@@ -41,7 +41,7 @@ class DataCruncher {
 
     int i = 0;
     _categoryData.forEach(
-          (category) {
+      (category) {
         if (category["count"] != 0) {
           data.add(CategoryData(
               i, category["count"], category["name"], category["total"]));
@@ -53,7 +53,7 @@ class DataCruncher {
     // FILTER TO TOP 5 SPENDINGS?
 
     data.sort(
-          (a, b) {
+      (a, b) {
         return a.total < b.total ? 1 : -1;
       },
     );
@@ -80,7 +80,7 @@ class DataCruncher {
           colorFn: (CategoryData category, _) => category.color,
           data: output,
           labelAccessorFn: (CategoryData row, _) =>
-          '${row.name} $currency${row.total.toString()}',
+              '${row.name} $currency${row.total.toString()}',
         )
       ];
     } else {
@@ -93,7 +93,7 @@ class DataCruncher {
     List<Map<String, dynamic>> _categoryData = [];
 
     categories.forEach(
-          (category) {
+      (category) {
         _categoryData.add(
           {
             "domainID": Random().nextInt(1000000),
@@ -107,9 +107,9 @@ class DataCruncher {
     );
 
     expenses.forEach(
-          (expense) {
+      (expense) {
         _categoryData.forEach(
-              (category) {
+          (category) {
             if (expense.category == category["id"]) {
               category["count"] += 1;
               category["total"] += (double.parse(expense.amount) / 100).round();
@@ -123,7 +123,7 @@ class DataCruncher {
 
     int i = 0;
     _categoryData.forEach(
-          (category) {
+      (category) {
         if (category["count"] != 0) {
           data.add(CategoryData(
               i, category["count"], category["name"], category["total"]));
@@ -135,7 +135,7 @@ class DataCruncher {
     // FILTER TO TOP 5 SPENDINGS?
 
     data.sort(
-          (a, b) {
+      (a, b) {
         return a.total < b.total ? 1 : -1;
       },
     );
@@ -147,9 +147,9 @@ class DataCruncher {
     double total = 0;
 
     expenses.forEach(
-          (Expense expense) {
+      (Expense expense) {
         DateTime expenseDate =
-        DateTime.fromMillisecondsSinceEpoch(int.parse(expense.createdAt));
+            DateTime.fromMillisecondsSinceEpoch(int.parse(expense.createdAt));
         if (expenseDate.month == DateTime.now().month &&
             expenseDate.year == DateTime.now().year) {
           double price = double.parse(expense.amount) / 100;
@@ -163,12 +163,15 @@ class DataCruncher {
   double getWeekTotal(expenses) {
     double total = 0;
     int currentDay = DateTime.now().weekday;
-    DateTime startWeek = DateTime.now().subtract(Duration(days: currentDay - (currentDay - 1)));
-    int start = DateTime(startWeek.year, startWeek.month, startWeek.day ).millisecondsSinceEpoch;
+    DateTime startWeek =
+        DateTime.now().subtract(Duration(days: currentDay - (currentDay - 1)));
+    int start = DateTime(startWeek.year, startWeek.month, startWeek.day)
+        .millisecondsSinceEpoch;
     DateTime endWeek = DateTime.now().add(Duration(days: 7 - currentDay));
-    int end = DateTime(endWeek.year, endWeek.month, endWeek.day, 23, 59).millisecondsSinceEpoch;
+    int end = DateTime(endWeek.year, endWeek.month, endWeek.day, 23, 59)
+        .millisecondsSinceEpoch;
     expenses.forEach(
-          (Expense expense) {
+      (Expense expense) {
         int createdAt = int.parse(expense.createdAt);
         if (createdAt >= start && createdAt <= end) {
           double price = double.parse(expense.amount) / 100;
@@ -182,7 +185,7 @@ class DataCruncher {
   double getTotal(expenses) {
     double total = 0;
     expenses.forEach(
-          (Expense expense) {
+      (Expense expense) {
         double price = double.parse(expense.amount) / 100;
         total = total + price;
       },
